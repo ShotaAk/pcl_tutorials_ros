@@ -1,0 +1,12 @@
+<launch>
+  <arg name="number" default="0" />
+  <include file="$(find my_pcl_tutorial)/launch/realsense.launch" />
+
+  <node name="pcl_example" pkg="my_pcl_tutorial" type="example">
+    <param name="number" value="$(arg number)" />
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" respawn="false" 
+    args="-d $(find my_pcl_tutorial)/launch/config.rviz" output="screen" />
+
+</launch>
