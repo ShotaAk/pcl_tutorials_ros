@@ -19,7 +19,7 @@ void tf_broadcast(const std::string frame_id){
     transformStamped.header.stamp = ros::Time::now();
     transformStamped.header.frame_id = "camera_depth_optical_frame";
     transformStamped.child_frame_id = frame_id;
-    transformStamped.transform.translation.x = 2.0;
+    transformStamped.transform.translation.x = 4.0;
     transformStamped.transform.translation.y = 0.0;
     transformStamped.transform.translation.z = 0.0;
     tf2::Quaternion q;
@@ -78,7 +78,7 @@ int main (int argc, char** argv)
 {
     // Initialize ROS
     ros::init (argc, argv, "my_pcl_tutorial");
-    ros::NodeHandle nh;
+    ros::NodeHandle nh("~");
 
     // example_numberで試したいサンプルを切り替える
     nh.param<int>("number", ExampleNumber, 0);
@@ -87,7 +87,7 @@ int main (int argc, char** argv)
     ros::Subscriber sub = nh.subscribe("/camera/depth_registered/points", 1, cloud_cb);
 
     // Create a ROS publisher for the output point cloud
-    PubOutput = nh.advertise<sensor_msgs::PointCloud2> ("output", 1);
+    PubOutput = nh.advertise<sensor_msgs::PointCloud2> ("/output", 1);
 
 
     // Spin
