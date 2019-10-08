@@ -8,6 +8,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/passthrough.h>
 
 
 static ros::Publisher PubOutput;
@@ -31,8 +32,9 @@ void tf_broadcast(const std::string frame_id){
     br.sendTransform(transformStamped);
 }
 
-void example_downSampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
-    // ダウンサンプリング
+void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // VoxelGridFilterを使ったダウンサンプリング
+    // Ref: http://www.pointclouds.org/documentation/tutorials/voxel_grid.php#voxelgrid
 
     // Container for original & filtered data
     pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
@@ -48,10 +50,37 @@ void example_downSampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, con
     sor.setLeafSize(0.1, 0.1, 0.1);
     sor.filter(cloud_filtered);
 
-    // Copnvert to ROS data type
+    // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
     pcl_conversions::moveFromPCL(cloud_filtered, output);
+    output.header.frame_id = frame_id;
 
+    // Publish the data
+    PubOutput.publish(output);
+}
+
+void passThrough(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // PassThrough Filtering
+    // Ref: http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
+    // Ref: http://wiki.ros.org/pcl/Tutorials
+
+    pcl::PointCloud<pcl::PointXYZ> cloud;
+    pcl::PointCloud<pcl::PointXYZ> cloud_filtered;
+
+    // Convert to PCL data type
+    pcl::fromROSMsg (*cloud_msg, cloud);
+
+    // Create the filtering object
+    pcl::PassThrough<pcl::PointXYZ> pass;
+    pass.setInputCloud (cloud.makeShared());
+    pass.setFilterFieldName ("z");
+    pass.setFilterLimits (0.0, 1.0);
+    // pass.setFilterLimitsNegative (true);
+    pass.filter (cloud_filtered);
+
+    // Convert to ROS data type
+    sensor_msgs::PointCloud2 output;
+    pcl::toROSMsg(cloud_filtered, output);
     output.header.frame_id = frame_id;
 
     // Publish the data
@@ -64,7 +93,10 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 
     switch(ExampleNumber){
     case 0:
-        example_downSampling(cloud_msg, EXAMPLE_FRAME_ID);
+        downsampling(cloud_msg, EXAMPLE_FRAME_ID);
+        break;
+    case 1:
+        passThrough(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
         break;
