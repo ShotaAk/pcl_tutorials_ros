@@ -20,7 +20,7 @@ void tf_broadcast(const std::string frame_id){
     transformStamped.header.stamp = ros::Time::now();
     transformStamped.header.frame_id = "camera_depth_optical_frame";
     transformStamped.child_frame_id = frame_id;
-    transformStamped.transform.translation.x = 4.0;
+    transformStamped.transform.translation.x = 2.0;
     transformStamped.transform.translation.y = 0.0;
     transformStamped.transform.translation.z = 0.0;
     tf2::Quaternion q;

@@ -23,9 +23,44 @@
       </joint>
     </model>
 
-    <include>
-      <uri>model://camera</uri>
-      <pose>0 0 3 0 0 0</pose>
-    </include>
+    <model name="kinect_ros">
+      <include>
+        <uri>model://kinect_ros</uri>
+      </include>
+      <pose>0.6 0 2 0 0 0</pose>
+    </model>
+
+    <model name="coke_can1">
+      <include>
+        <uri>model://coke_can</uri>
+      </include>
+      <pose>0.6 0.6 2 0 0 0</pose>
+    </model>
+    <model name="coke_can2">
+      <include>
+        <uri>model://coke_can</uri>
+      </include>
+      <pose>0.6 0.7 2 0 0 0</pose>
+    </model>
+
+    <model name="number1">
+      <include>
+        <uri>model://number1</uri>
+      </include>
+      <pose>2 1 0 0 0 0</pose>
+    </model>
+    <model name="number2">
+      <include>
+        <uri>model://number2</uri>
+      </include>
+      <pose>2.5 0 0.5 0 0 0.7854</pose>
+    </model>
+    <model name="number3">
+      <include>
+        <uri>model://number3</uri>
+      </include>
+      <pose>3 -1 1 0 0.7854 0.7854</pose>
+    </model>
+
   </world>
 </sdf>
