@@ -1,6 +1,13 @@
 <launch>
   <arg name="number" default="0" />
-  <include file="$(find my_pcl_tutorial)/launch/realsense.launch" />
+  <arg name="gazebo" default="false" />
+
+  <group unless="$(arg gazebo)">
+    <include file="$(find my_pcl_tutorial)/launch/realsense.launch" />
+  </group>
+  <group if="$(arg gazebo)">
+    <include file="$(find my_pcl_tutorial)/launch/gazebo.launch" />
+  </group>
 
   <node name="pcl_example" pkg="my_pcl_tutorial" type="example">
     <param name="number" value="$(arg number)" />
