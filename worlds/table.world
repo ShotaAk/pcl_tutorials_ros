@@ -9,7 +9,7 @@
       <include>
         <uri>model://table</uri>
       </include>
-      <pose>0.29 0 0 0 0 1.5708</pose>
+      <pose>0.29 0 0 0 0 0</pose>
     </model>
 
     <model name="ground_plane">
@@ -27,39 +27,26 @@
       <include>
         <uri>model://kinect_ros</uri>
       </include>
-      <pose>0.6 0 2 0 0 0</pose>
+      <pose>-0.35 0 1.1 0 0 0</pose>
     </model>
 
-    <model name="coke_can1">
+    <model name="BlueSphere">
       <include>
-        <uri>model://coke_can</uri>
+        <uri>model://BlueSphere</uri>
       </include>
-      <pose>0.6 0.6 2 0 0 0</pose>
+      <pose>0.4 0.3 1.1 0 0 0</pose>
     </model>
-    <model name="coke_can2">
+    <model name="GreenBox">
       <include>
-        <uri>model://coke_can</uri>
+        <uri>model://GreenBox</uri>
       </include>
-      <pose>0.6 0.7 2 0 0 0</pose>
+      <pose>0.6 0 1.1 0 0 0</pose>
     </model>
-
-    <model name="number1">
+    <model name="RedCylinder">
       <include>
-        <uri>model://number1</uri>
+        <uri>model://RedCylinder</uri>
       </include>
-      <pose>2 1 0 0 0 0</pose>
-    </model>
-    <model name="number2">
-      <include>
-        <uri>model://number2</uri>
-      </include>
-      <pose>2.5 0 0.5 0 0 0.7854</pose>
-    </model>
-    <model name="number3">
-      <include>
-        <uri>model://number3</uri>
-      </include>
-      <pose>3 -1 1 0 0.7854 0.7854</pose>
+      <pose>0.8 -0.3 1.1 0 0 0</pose>
     </model>
 
   </world>
