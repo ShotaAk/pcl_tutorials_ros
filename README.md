@@ -64,4 +64,4 @@ roslaunch pcl_tutorials_ros example.launch use_file:=true file:=table_scene_lms4
 
 # Tutorials
 
-Please refer to [Tutorial page](./doc/Tutorials.md).
+Please refer to [Tutorials page](./doc/Tutorials.md).
