@@ -7,9 +7,11 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/voxel_grid.h>
+
 #include <pcl/filters/passthrough.h>
+#include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/filters/project_inliers.h>
 
 
 static ros::Publisher PubOutput;
@@ -41,9 +43,9 @@ void passThrough(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::s
     pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
     pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
     pcl::PCLPointCloud2 cloud_filtered;
-
     // Convert to PCL data type
     pcl_conversions::toPCL(*cloud_msg, *cloud);
+
 
     // Create the filtering object
     pcl::PassThrough<pcl::PCLPointCloud2> pass;
@@ -53,11 +55,11 @@ void passThrough(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::s
     // pass.setFilterLimitsNegative (true);
     pass.filter (cloud_filtered);
 
+
     // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
     pcl_conversions::moveFromPCL(cloud_filtered, output);
     output.header.frame_id = frame_id;
-
     // Publish the data
     PubOutput.publish(output);
 }
@@ -70,9 +72,9 @@ void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::
     pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
     pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
     pcl::PCLPointCloud2 cloud_filtered;
-
     // Convert to PCL data type
     pcl_conversions::toPCL(*cloud_msg, *cloud);
+
 
     // Perform the actual filtering
     pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
@@ -80,11 +82,11 @@ void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::
     sor.setLeafSize(0.1, 0.1, 0.1);
     sor.filter(cloud_filtered);
 
+
     // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
     pcl_conversions::moveFromPCL(cloud_filtered, output);
     output.header.frame_id = frame_id;
-
     // Publish the data
     PubOutput.publish(output);
 }
@@ -93,15 +95,14 @@ void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::
 void statisticalOutlierRemoval(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
     // StatisticalOutlierRemoval filtering
     // Ref: http://www.pointclouds.org/documentation/tutorials/statistical_outlier.php#statistical-outlier-removal
-
     
     // Container for original & filtered data
     pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
     pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
     pcl::PCLPointCloud2 cloud_filtered;
-
     // Convert to PCL data type
     pcl_conversions::toPCL(*cloud_msg, *cloud);
+
 
     // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
@@ -110,11 +111,46 @@ void statisticalOutlierRemoval(const sensor_msgs::PointCloud2ConstPtr& cloud_msg
     sor.setStddevMulThresh (1.0);
     sor.filter (cloud_filtered);
 
+
     // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
     pcl_conversions::moveFromPCL(cloud_filtered, output);
     output.header.frame_id = frame_id;
+    // Publish the data
+    PubOutput.publish(output);
+}
 
+void projectInliers(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // Projecting
+    // Ref: http://www.pointclouds.org/documentation/tutorials/project_inliers.php#project-inliers
+
+    // Container for original & filtered data
+    pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
+    pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
+    pcl::PCLPointCloud2 cloud_projected;
+    // Convert to PCL data type
+    pcl_conversions::toPCL(*cloud_msg, *cloud);
+
+
+    // Create a set of planar coefficients with X=Y=0,Z=1
+    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients ());
+    coefficients->values.resize (4);
+    coefficients->values[0] = coefficients->values[1] = 0;
+    coefficients->values[2] = 1.0;
+    coefficients->values[3] = 0;
+
+    // Create the filtering object
+    pcl::ProjectInliers<pcl::PCLPointCloud2> proj;
+    proj.setModelType (pcl::SACMODEL_PLANE);
+    proj.setInputCloud (cloudPtr);
+    proj.setModelCoefficients (coefficients);
+    proj.filter (cloud_projected);
+
+
+    // Convert to ROS data type
+    sensor_msgs::PointCloud2 output;
+    pcl_conversions::moveFromPCL(cloud_projected, output);
+    output.header.frame_id = frame_id;
     // Publish the data
     PubOutput.publish(output);
 }
@@ -132,6 +168,9 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
         break;
     case 2:
         statisticalOutlierRemoval(cloud_msg, EXAMPLE_FRAME_ID);
+        break;
+    case 3:
+        projectInliers(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
         break;

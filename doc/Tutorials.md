@@ -27,3 +27,11 @@ http://www.pointclouds.org/documentation/tutorials/statistical_outlier.php#stati
 ```bash
 roslaunch my_pcl_tutorial example.launch sample:=true file:=table_scene_lms400.pcd number:=2
 ```
+
+## Projecting points using a parametric model
+
+http://www.pointclouds.org/documentation/tutorials/project_inliers.php#project-inliers
+
+```bash
+roslaunch my_pcl_tutorial example.launch gazebo:=true number:=3
+```
