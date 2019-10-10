@@ -3,7 +3,7 @@
 This package executes [pointclouds.org's tutorials](http://www.pointclouds.org/documentation/tutorials/)
 on ROS enviroments.
 
-![top_image](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/top_image.png)
+![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/statisticalOutlierRemoval.png)
 
 # Requirments
 
@@ -40,6 +40,10 @@ cd ~/catkin_ws/src/pcl_tutorials_ros/samples
 
 # Usage
 
+## Tutorials
+
+Please refer to [Tutorials page](./doc/Tutorials.md).
+
 ## Use Realsense D415
 
 ```bash
@@ -65,7 +69,3 @@ roslaunch pcl_tutorials_ros example.launch use_file:=true file:=table_scene_lms4
 ```
 
 ![pcd_file](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/pcd_file.png)
-
-# Tutorials
-
-Please refer to [Tutorials page](./doc/Tutorials.md).
