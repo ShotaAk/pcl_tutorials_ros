@@ -9,6 +9,7 @@
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/passthrough.h>
+#include <pcl/filters/statistical_outlier_removal.h>
 
 
 static ros::Publisher PubOutput;
@@ -32,8 +33,37 @@ void tf_broadcast(const std::string frame_id){
     br.sendTransform(transformStamped);
 }
 
+void passThrough(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // PassThrough Filtering
+    // Ref: http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
+
+    // Container for original & filtered data
+    pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
+    pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
+    pcl::PCLPointCloud2 cloud_filtered;
+
+    // Convert to PCL data type
+    pcl_conversions::toPCL(*cloud_msg, *cloud);
+
+    // Create the filtering object
+    pcl::PassThrough<pcl::PCLPointCloud2> pass;
+    pass.setInputCloud (cloudPtr);
+    pass.setFilterFieldName ("z");
+    pass.setFilterLimits (0.0, 1.0);
+    // pass.setFilterLimitsNegative (true);
+    pass.filter (cloud_filtered);
+
+    // Convert to ROS data type
+    sensor_msgs::PointCloud2 output;
+    pcl_conversions::moveFromPCL(cloud_filtered, output);
+    output.header.frame_id = frame_id;
+
+    // Publish the data
+    PubOutput.publish(output);
+}
+
 void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
-    // VoxelGridFilterを使ったダウンサンプリング
+    // VoxelGrid filtering
     // Ref: http://www.pointclouds.org/documentation/tutorials/voxel_grid.php#voxelgrid
 
     // Container for original & filtered data
@@ -59,28 +89,30 @@ void downsampling(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::
     PubOutput.publish(output);
 }
 
-void passThrough(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
-    // PassThrough Filtering
-    // Ref: http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
-    // Ref: http://wiki.ros.org/pcl/Tutorials
 
-    pcl::PointCloud<pcl::PointXYZ> cloud;
-    pcl::PointCloud<pcl::PointXYZ> cloud_filtered;
+void statisticalOutlierRemoval(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // StatisticalOutlierRemoval filtering
+    // Ref: http://www.pointclouds.org/documentation/tutorials/statistical_outlier.php#statistical-outlier-removal
+
+    
+    // Container for original & filtered data
+    pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
+    pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
+    pcl::PCLPointCloud2 cloud_filtered;
 
     // Convert to PCL data type
-    pcl::fromROSMsg (*cloud_msg, cloud);
+    pcl_conversions::toPCL(*cloud_msg, *cloud);
 
     // Create the filtering object
-    pcl::PassThrough<pcl::PointXYZ> pass;
-    pass.setInputCloud (cloud.makeShared());
-    pass.setFilterFieldName ("z");
-    pass.setFilterLimits (0.0, 1.0);
-    // pass.setFilterLimitsNegative (true);
-    pass.filter (cloud_filtered);
+    pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
+    sor.setInputCloud (cloudPtr);
+    sor.setMeanK (50);
+    sor.setStddevMulThresh (1.0);
+    sor.filter (cloud_filtered);
 
     // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
-    pcl::toROSMsg(cloud_filtered, output);
+    pcl_conversions::moveFromPCL(cloud_filtered, output);
     output.header.frame_id = frame_id;
 
     // Publish the data
@@ -93,10 +125,13 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 
     switch(ExampleNumber){
     case 0:
-        downsampling(cloud_msg, EXAMPLE_FRAME_ID);
+        passThrough(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     case 1:
-        passThrough(cloud_msg, EXAMPLE_FRAME_ID);
+        downsampling(cloud_msg, EXAMPLE_FRAME_ID);
+        break;
+    case 2:
+        statisticalOutlierRemoval(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
         break;
