@@ -176,17 +176,16 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
         break;
     }
 
-    // サンプル描画位置をずらすため、TFをブロードキャスト
+    // to shift positions of rendering point clouds
     tf_broadcast(EXAMPLE_FRAME_ID);
 }
 
 int main (int argc, char** argv)
 {
     // Initialize ROS
-    ros::init (argc, argv, "my_pcl_tutorial");
+    ros::init (argc, argv, "example_filtering");
     ros::NodeHandle nh("~");
 
-    // example_numberで試したいサンプルを切り替える
     nh.param<int>("number", ExampleNumber, 0);
 
     // Create a ROS subscriber for the input point cloud
@@ -195,7 +194,5 @@ int main (int argc, char** argv)
     // Create a ROS publisher for the output point cloud
     PubOutput = nh.advertise<sensor_msgs::PointCloud2> ("/output", 1);
 
-
-    // Spin
     ros::spin ();
 }

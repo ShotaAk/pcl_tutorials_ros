@@ -1,8 +1,9 @@
 <launch>
+  <arg name="example" default="filtering" />
   <arg name="number" default="0" />
   <arg name="realsense" default="false" />
   <arg name="gazebo" default="false" />
-  <arg name="sample" default="false" />
+  <arg name="use_file" default="false" />
   <arg name="file" default="" />
 
   <group if="$(arg realsense)">
@@ -11,7 +12,7 @@
   <group if="$(arg gazebo)">
     <include file="$(find my_pcl_tutorial)/launch/gazebo.launch" />
   </group>
-  <group if="$(arg sample)">
+  <group if="$(arg use_file)">
     <arg name="file_name" value="$(find my_pcl_tutorial)/samples/$(arg file)"/>
     <arg name="rate" value="0.1"/>
 
@@ -21,7 +22,7 @@
     </node>
   </group>
 
-  <node name="pcl_example" pkg="my_pcl_tutorial" type="example">
+  <node name="pcl_example" pkg="my_pcl_tutorial" type="$(arg example)">
     <param name="number" value="$(arg number)" />
   </node>
 

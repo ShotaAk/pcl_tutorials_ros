@@ -15,8 +15,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(example src/example.cpp)
+add_executable(filtering src/filtering.cpp)
 
-target_link_libraries(example
+target_link_libraries(filtering
   ${catkin_LIBRARIES}
 )

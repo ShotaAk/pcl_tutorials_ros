@@ -31,14 +31,6 @@ cd ~/catkin_ws/src/my_pcl_tutorial/samples
 
 # Usage
 
-## Change sample function
-
-```bash
-roslaunch my_pcl_tutorial example.launch gazebo:=true numbder:=0
-
-roslaunch my_pcl_tutorial example.launch gazebo:=true numbder:=1
-```
-
 ## Use Realsense D415
 
 ```bash
@@ -56,7 +48,7 @@ roslaunch my_pcl_tutorial example.launch gazebo:=true
 Example: ./samples/table_scene_lms400.pcd
 
 ```bash
-roslaunch my_pcl_tutorial example.launch sample:=true file:=table_scene_lms400.pcd
+roslaunch my_pcl_tutorial example.launch use_file:=true file:=table_scene_lms400.pcd
 ```
 
 # Tutorials
