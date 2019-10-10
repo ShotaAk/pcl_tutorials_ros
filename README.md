@@ -8,6 +8,10 @@ on ROS enviroments.
 # Requirments
 
 - ROS Melodic
+- Gazebo
+
+## Optional
+
 - Depth Camera
     - Currently support Realsense D415
 
