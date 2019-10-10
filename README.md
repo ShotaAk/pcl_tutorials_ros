@@ -28,7 +28,7 @@ catkin_make
 
 # Download sample pcd files
 sudo apt install wget
-cd ~/catkin_ws/src/my_pcl_tutorial/samples
+cd ~/catkin_ws/src/pcl_tutorials_ros/samples
 ./download.sh
 ```
 
@@ -37,13 +37,13 @@ cd ~/catkin_ws/src/my_pcl_tutorial/samples
 ## Use Realsense D415
 
 ```bash
-roslaunch my_pcl_tutorial example.launch realsense:=true
+roslaunch pcl_tutorials_ros example.launch realsense:=true
 ```
 
 ## Use Gazebo
 
 ```bash
-roslaunch my_pcl_tutorial example.launch gazebo:=true
+roslaunch pcl_tutorials_ros example.launch gazebo:=true
 ```
 
 ## Use Sample .pcd file
@@ -51,7 +51,7 @@ roslaunch my_pcl_tutorial example.launch gazebo:=true
 Example: ./samples/table_scene_lms400.pcd
 
 ```bash
-roslaunch my_pcl_tutorial example.launch use_file:=true file:=table_scene_lms400.pcd
+roslaunch pcl_tutorials_ros example.launch use_file:=true file:=table_scene_lms400.pcd
 ```
 
 # Tutorials

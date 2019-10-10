@@ -7,13 +7,13 @@
   <arg name="file" default="" />
 
   <group if="$(arg realsense)">
-    <include file="$(find my_pcl_tutorial)/launch/realsense.launch" />
+    <include file="$(find pcl_tutorials_ros)/launch/realsense.launch" />
   </group>
   <group if="$(arg gazebo)">
-    <include file="$(find my_pcl_tutorial)/launch/gazebo.launch" />
+    <include file="$(find pcl_tutorials_ros)/launch/gazebo.launch" />
   </group>
   <group if="$(arg use_file)">
-    <arg name="file_name" value="$(find my_pcl_tutorial)/samples/$(arg file)"/>
+    <arg name="file_name" value="$(find pcl_tutorials_ros)/samples/$(arg file)"/>
     <arg name="rate" value="0.1"/>
 
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="pcd_to_pointcloud" args="$(arg file_name) $(arg rate)" output="screen">
@@ -22,10 +22,10 @@
     </node>
   </group>
 
-  <node name="pcl_example" pkg="my_pcl_tutorial" type="$(arg example)">
+  <node name="pcl_example" pkg="pcl_tutorials_ros" type="$(arg example)">
     <param name="number" value="$(arg number)" />
   </node>
 
   <node name="rviz" pkg="rviz" type="rviz" respawn="false" 
-    args="-d $(find my_pcl_tutorial)/launch/config.rviz" output="screen" />
+    args="-d $(find pcl_tutorials_ros)/launch/config.rviz" output="screen" />
 </launch>

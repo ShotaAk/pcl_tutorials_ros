@@ -6,10 +6,10 @@
   <arg name="use_sim_time" default="true"/>
   <arg name="headless" default="false"/>
 
-  <env name="GAZEBO_MODEL_PATH" value="$(find my_pcl_tutorial)/models:$(optenv GAZEBO_MODEL_PATH)" /> 
+  <env name="GAZEBO_MODEL_PATH" value="$(find pcl_tutorials_ros)/models:$(optenv GAZEBO_MODEL_PATH)" /> 
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find my_pcl_tutorial)/worlds/table.world"/>
+    <arg name="world_name" value="$(find pcl_tutorials_ros)/worlds/table.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>

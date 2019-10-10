@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>my_pcl_tutorial</name>
+  <name>pcl_tutorials_ros</name>
   <version>0.1.0</version>
   <description>Tutorial package for PCL with ROS</description>
 

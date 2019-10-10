@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(my_pcl_tutorial)
+project(pcl_tutorials_ros)
 
 find_package(catkin REQUIRED COMPONENTS
   pcl_ros
