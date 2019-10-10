@@ -22,7 +22,7 @@ on ROS enviroments.
 cd ~/catkin_ws/src
 git clone https://github.com/ShotaAk/pcl_tutorials_ros
 
-# for Realsense
+# Optional. ROS package for Realsense
 git clone https://github.com/IntelRealSense/realsense-ros
 
 # Install packages
