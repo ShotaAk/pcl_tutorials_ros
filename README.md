@@ -1,4 +1,4 @@
-# Tutorial package for pcl_ros
+# Tutorial package for PCL with ROS
 
 # Requirments
 
