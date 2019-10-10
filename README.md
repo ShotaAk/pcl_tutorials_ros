@@ -1,5 +1,8 @@
 # Tutorial package for PCL with ROS
 
+This package executes [pointclouds.org's tutorials](http://www.pointclouds.org/documentation/tutorials/)
+on ROS enviroments.
+
 # Requirments
 
 - ROS Melodic
