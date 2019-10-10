@@ -12,14 +12,17 @@ on ROS enviroments.
 # Installation
 
 ```bash
+# Clone this package
 cd ~/catkin_ws/src
-git clone https://github.com/ShotaAk/my_pcl_tutorial
+git clone https://github.com/ShotaAk/pcl_tutorials_ros
 
 # for Realsense
 git clone https://github.com/IntelRealSense/realsense-ros
 
+# Install packages
 rosdep install -r -y --from-paths . --ignore-src
 
+# Build
 cd ~/catkin_ws
 catkin_make
 
