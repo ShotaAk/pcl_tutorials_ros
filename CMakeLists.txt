@@ -16,7 +16,11 @@ include_directories(
 )
 
 add_executable(filtering src/filtering.cpp)
+add_executable(segmentation src/segmentation.cpp)
 
 target_link_libraries(filtering
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(segmentation
   ${catkin_LIBRARIES}
 )
