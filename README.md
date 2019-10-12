@@ -12,8 +12,10 @@ on ROS enviroments.
 
 ## Optional
 
-- Depth Camera
-    - Currently support Realsense D415
+- RealSense
+    - RealSense D415 
+    - [RealSense SDK](https://github.com/IntelRealSense/librealsense)
+    - [RealSense ROS Package](https://github.com/IntelRealSense/realsense-ros)
 
 # Installation
 
@@ -21,9 +23,6 @@ on ROS enviroments.
 # Clone this package
 cd ~/catkin_ws/src
 git clone https://github.com/ShotaAk/pcl_tutorials_ros
-
-# Optional. ROS package for Realsense
-git clone https://github.com/IntelRealSense/realsense-ros
 
 # Install packages
 rosdep install -r -y --from-paths . --ignore-src
