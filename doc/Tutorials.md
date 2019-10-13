@@ -50,3 +50,14 @@ http://www.pointclouds.org/documentation/tutorials/extract_indices.php#extract-i
 
 TBD
 
+# Segmentation
+
+## Plane model segmentation
+
+http://pointclouds.org/documentation/tutorials/planar_segmentation.php#planar-segmentation
+
+```bash
+roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazebo:=true
+```
+
+![plane_model](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/segmentation/plane_model.png)
