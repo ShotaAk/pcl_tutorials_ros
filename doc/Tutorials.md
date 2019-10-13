@@ -2,6 +2,9 @@
 
 Please refer to http://www.pointclouds.org/documentation/tutorials/
 
+- [Filtering](#filtering)
+- [Segmentation](#segmentation)
+
 # Filtering
 
 ## Filtering a PointCloud using a PassThrough filter
