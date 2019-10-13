@@ -1,7 +1,7 @@
 # PCL Tutorials with ROS
 
 This package executes [pointclouds.org's tutorials](http://www.pointclouds.org/documentation/tutorials/)
-on ROS enviroments.
+on ROS environments.
 
 ![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/statisticalOutlierRemoval.png)
 
@@ -59,12 +59,12 @@ roslaunch pcl_tutorials_ros example.launch gazebo:=true
 
 ![gazebo](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/gazebo.png)
 
-## Use Sample .pcd file
+## Use PCD file
 
-Example: ./samples/table_scene_lms400.pcd
+Example: `./samples/pcl_logo.pcd`
 
 ```bash
-roslaunch pcl_tutorials_ros example.launch use_file:=true file:=table_scene_lms400.pcd
+roslaunch pcl_tutorials_ros example.launch use_file:=true file:=pcl_logo.pcd
 ```
 
-![pcd_file](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/pcd_file.png)
+![pcd_file](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/pcd.png)
