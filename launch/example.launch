@@ -9,9 +9,14 @@
   <group if="$(arg realsense)">
     <include file="$(find pcl_tutorials_ros)/launch/realsense.launch" />
   </group>
+
   <group if="$(arg gazebo)">
     <include file="$(find pcl_tutorials_ros)/launch/gazebo.launch" />
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_broadcaster" 
+      args="0 0 0 -1.570796 0 -1.570796 camera_link camera_depth_optical_frame " />
   </group>
+
   <group if="$(arg use_file)">
     <arg name="file_name" value="$(find pcl_tutorials_ros)/samples/$(arg file)"/>
     <arg name="rate" value="0.1"/>
@@ -20,6 +25,9 @@
       <remap from="cloud_pcd" to="/camera/depth_registered/points"/>
       <param name="frame_id" value="camera_depth_optical_frame" />
     </node>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_broadcaster" 
+      args="0 0 0 -1.570796 0 -1.570796 camera_link camera_depth_optical_frame " />
   </group>
 
   <node name="pcl_example" pkg="pcl_tutorials_ros" type="$(arg example)">
