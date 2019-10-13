@@ -1,7 +1,7 @@
 # PCL Tutorials with ROS
 
 This package executes [pointclouds.org's tutorials](http://www.pointclouds.org/documentation/tutorials/)
-on ROS enviroments.
+on ROS environments.
 
 ![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/statisticalOutlierRemoval.png)
 
