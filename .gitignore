@@ -33,7 +33,6 @@ devel_isolated/
 CMakeLists.txt.user
 
 srv/_*.py
-*.pcd
 *.pyc
 qtcreator-*
 *.user
@@ -49,3 +48,7 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+# PCD files from pointclouds.org
+table_scene_lms400.pcd
+
