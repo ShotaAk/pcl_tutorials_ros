@@ -8,9 +8,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/kdtree/kdtree_flann.h>
 
 
 static ros::Publisher PubOutput;
@@ -34,40 +32,61 @@ void tf_broadcast(const std::string frame_id){
     br.sendTransform(transformStamped);
 }
 
-void plane(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
-    // PassThrough Filtering
-    // Ref: http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
-    // Ref: http://wiki.ros.org/perception_pcl/Tutorials
+
+void kdTree(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // How to use a KdTree to search
+    // Ref: http://pointclouds.org/documentation/tutorials/kdtree_search.php#kdtree-search
 
     // Convert the sensor_msgs/PointCloud2 data to pcl/PointCloud
     // Use pcl::PointXYZRGB to visualize segmentation.
     pcl::PointCloud<pcl::PointXYZRGB> cloud;
     pcl::fromROSMsg(*cloud_msg, cloud);
 
-    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
-    pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
-    // Create the segmentation object
-    pcl::SACSegmentation<pcl::PointXYZRGB> seg;
-    // Optional
-    seg.setOptimizeCoefficients (true);
-    // Mandatory
-    seg.setModelType (pcl::SACMODEL_PLANE);
-    seg.setMethodType (pcl::SAC_RANSAC);
-    seg.setDistanceThreshold (0.01);
-    
-    seg.setInputCloud (cloud.makeShared());
-    seg.segment (*inliers, *coefficients);
+    pcl::KdTreeFLANN<pcl::PointXYZRGB> kdtree;
 
-    if (inliers->indices.size () == 0)
+    kdtree.setInputCloud (cloud.makeShared());
+
+    pcl::PointXYZRGB searchPoint;
+
+    searchPoint.x = 1024.0f * rand () / (RAND_MAX + 1.0f);
+    searchPoint.y = 1024.0f * rand () / (RAND_MAX + 1.0f);
+    searchPoint.z = 1024.0f * rand () / (RAND_MAX + 1.0f);
+
+    // K nearest neighbor search
+
+    /*
+    int K = 10;
+
+    std::vector<int> pointIdxNKNSearch(K);
+    std::vector<float> pointNKNSquaredDistance(K);
+    kdtree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance);
+    if ( kdtree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0 )
     {
-        ROS_ERROR("Could not estimate a planar model for the given dataset.");
-        exit(-1);
+        for (size_t i = 0; i < pointIdxNKNSearch.size (); ++i)
+            std::cout << "    "  <<   cloud->points[ pointIdxNKNSearch[i] ].x 
+                << " " << cloud->points[ pointIdxNKNSearch[i] ].y 
+                << " " << cloud->points[ pointIdxNKNSearch[i] ].z 
+                << " (squared distance: " << pointNKNSquaredDistance[i] << ")" << std::endl;
     }
+    */
 
-    for (size_t i = 0; i < inliers->indices.size (); ++i){
-        cloud.points[inliers->indices[i]].r = 255;
-        cloud.points[inliers->indices[i]].g = 0;
-        cloud.points[inliers->indices[i]].b = 0;
+    // Neighbors within radius search
+
+    std::vector<int> pointIdxRadiusSearch;
+    std::vector<float> pointRadiusSquaredDistance;
+
+    // float radius = 256.0f * rand () / (RAND_MAX + 1.0f);
+
+    float radius = 50;
+
+    if ( kdtree.radiusSearch (searchPoint, radius, pointIdxRadiusSearch, pointRadiusSquaredDistance) > 0 )
+    {
+        for (size_t i = 0; i < pointIdxRadiusSearch.size (); ++i){
+            cloud.points[ pointIdxRadiusSearch[i] ].r = 255;
+            cloud.points[ pointIdxRadiusSearch[i] ].g = 0;
+            cloud.points[ pointIdxRadiusSearch[i] ].b = 0;
+
+        }
     }
 
     // Convert to ROS data type
@@ -78,14 +97,13 @@ void plane(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string 
     PubOutput.publish(output);
 }
 
-
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
     const static std::string EXAMPLE_FRAME_ID = "example_frame";
 
     switch(ExampleNumber){
     case 0:
-        plane(cloud_msg, EXAMPLE_FRAME_ID);
+        kdTree(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
         break;
@@ -98,7 +116,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 int main (int argc, char** argv)
 {
     // Initialize ROS
-    ros::init (argc, argv, "example_segmentation");
+    ros::init (argc, argv, "example_kdtree");
     ros::NodeHandle nh("~");
 
     nh.param<int>("number", ExampleNumber, 0);
