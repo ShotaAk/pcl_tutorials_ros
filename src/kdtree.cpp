@@ -43,42 +43,33 @@ void kdTree(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string
     pcl::fromROSMsg(*cloud_msg, cloud);
 
     pcl::KdTreeFLANN<pcl::PointXYZRGB> kdtree;
-
     kdtree.setInputCloud (cloud.makeShared());
 
     pcl::PointXYZRGB searchPoint;
-
-    searchPoint.x = 1024.0f * rand () / (RAND_MAX + 1.0f);
-    searchPoint.y = 1024.0f * rand () / (RAND_MAX + 1.0f);
-    searchPoint.z = 1024.0f * rand () / (RAND_MAX + 1.0f);
+    searchPoint.x = 0; // meter
+    searchPoint.y = 0; // meter
+    searchPoint.z = 0.5; // meter
 
     // K nearest neighbor search
-
     /*
-    int K = 10;
+    int K = 1000;
 
     std::vector<int> pointIdxNKNSearch(K);
     std::vector<float> pointNKNSquaredDistance(K);
-    kdtree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance);
     if ( kdtree.nearestKSearch (searchPoint, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0 )
     {
-        for (size_t i = 0; i < pointIdxNKNSearch.size (); ++i)
-            std::cout << "    "  <<   cloud->points[ pointIdxNKNSearch[i] ].x 
-                << " " << cloud->points[ pointIdxNKNSearch[i] ].y 
-                << " " << cloud->points[ pointIdxNKNSearch[i] ].z 
-                << " (squared distance: " << pointNKNSquaredDistance[i] << ")" << std::endl;
+        for (size_t i = 0; i < pointIdxNKNSearch.size (); ++i){
+            cloud.points[ pointIdxNKNSearch[i] ].r = 255;
+            cloud.points[ pointIdxNKNSearch[i] ].g = 0;
+            cloud.points[ pointIdxNKNSearch[i] ].b = 0;
+        }
     }
     */
 
     // Neighbors within radius search
-
     std::vector<int> pointIdxRadiusSearch;
     std::vector<float> pointRadiusSquaredDistance;
-
-    // float radius = 256.0f * rand () / (RAND_MAX + 1.0f);
-
-    float radius = 50;
-
+    float radius = 0.1; // meter
     if ( kdtree.radiusSearch (searchPoint, radius, pointIdxRadiusSearch, pointRadiusSquaredDistance) > 0 )
     {
         for (size_t i = 0; i < pointIdxRadiusSearch.size (); ++i){
