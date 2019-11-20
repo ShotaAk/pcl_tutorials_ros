@@ -4,6 +4,7 @@ Please refer to http://www.pointclouds.org/documentation/tutorials/
 
 - [Filtering](#filtering)
 - [Segmentation](#segmentation)
+- [KdTree](#kdtree)
 
 # Filtering
 
@@ -12,6 +13,8 @@ Please refer to http://www.pointclouds.org/documentation/tutorials/
 ## Filtering a PointCloud using a PassThrough filter
 
 http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
+
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/filtering.cpp#L38)
 
 ```bash
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=0 gazebo:=true
@@ -23,6 +26,8 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=0 gazebo:=
 
 http://www.pointclouds.org/documentation/tutorials/voxel_grid.php#voxelgrid
 
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/filtering.cpp#L67)
+
 ```bash
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=1 gazebo:=true
 ```
@@ -33,6 +38,8 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=1 gazebo:=
 
 http://www.pointclouds.org/documentation/tutorials/statistical_outlier.php#statistical-outlier-removal
 
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/filtering.cpp#L95)
+
 ```bash
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=2 use_file:=true file:=table_scene_lms400.pcd
 ```
@@ -42,6 +49,8 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=2 use_file
 ## Projecting points using a parametric model
 
 http://www.pointclouds.org/documentation/tutorials/project_inliers.php#project-inliers
+
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/filtering.cpp#L123)
 
 ```bash
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=3 gazebo:=true
@@ -55,6 +64,20 @@ http://www.pointclouds.org/documentation/tutorials/extract_indices.php#extract-i
 
 TBD
 
+# KdTree
+
+[back to page top](#tutorials)
+
+http://www.pointclouds.org/documentation/tutorials/kdtree_search.php#kdtree-search
+
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/kdtree.cpp#L36)
+
+```bash
+roslaunch pcl_tutorials_ros example.launch example:=kdtree gazebo:=true
+```
+
+![kdtree](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/kdtree/kdtree.png)
+
 # Segmentation
 
 [back to page top](#tutorials)
@@ -62,6 +85,8 @@ TBD
 ## Plane model segmentation
 
 http://pointclouds.org/documentation/tutorials/planar_segmentation.php#planar-segmentation
+
+[Example code](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/segmentation.cpp#L37)
 
 ```bash
 roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazebo:=true
