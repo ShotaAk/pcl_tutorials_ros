@@ -12,6 +12,9 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/filters/project_inliers.h>
+#include <pcl/filters/extract_indices.h>
+
+#include <pcl/segmentation/sac_segmentation.h>
 
 
 static ros::Publisher PubOutput;
@@ -155,6 +158,74 @@ void projectInliers(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std
     PubOutput.publish(output);
 }
 
+void extractIndices(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std::string frame_id){
+    // Extracting indices from a PointCloud
+    // Ref: http://www.pointclouds.org/documentation/tutorials/extract_indices.php#extract-indices
+
+    // Container for original & filtered data
+    pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
+    pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
+    // Convert to PCL data type
+    pcl_conversions::toPCL(*cloud_msg, *cloud);
+
+    // Create the filtering object: downsample the dataset using a leaf size of 1cm
+    pcl::PCLPointCloud2::Ptr cloud_filtered_blob (new pcl::PCLPointCloud2 ());
+    pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
+    sor.setInputCloud(cloudPtr);
+    sor.setLeafSize(0.01, 0.01, 0.01);
+    sor.filter(*cloud_filtered_blob);
+
+    // Convert to the templated PointCloud
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>()); 
+    pcl::fromPCLPointCloud2 (*cloud_filtered_blob, *cloud_filtered);
+
+    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
+    pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
+    // Create the segmentation object
+    pcl::SACSegmentation<pcl::PointXYZRGB> seg;
+    // Optional
+    seg.setOptimizeCoefficients (true);
+    // Mandatory
+    seg.setModelType (pcl::SACMODEL_PLANE);
+    seg.setMethodType (pcl::SAC_RANSAC);
+    seg.setMaxIterations (1000);
+    seg.setDistanceThreshold (0.01);
+
+    // Create the filtering object
+    pcl::ExtractIndices<pcl::PointXYZRGB> extract;
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_extracted(new pcl::PointCloud<pcl::PointXYZRGB>()); 
+
+    int i = 0, nr_points = (int) cloud_filtered->points.size ();
+    // While 30% of the original cloud is still there
+    while (cloud_filtered->points.size () > 0.15 * nr_points)
+    {
+        // Segment the largest planar component from the remaining cloud
+        seg.setInputCloud (cloud_filtered);
+        seg.segment (*inliers, *coefficients);
+        if (inliers->indices.size () == 0)
+        {
+            ROS_INFO("Could not estimate a planar model for the given dataset.");
+            break;
+        }
+
+        // Extract the inliers
+        extract.setInputCloud (cloud_filtered);
+        extract.setIndices (inliers);
+        extract.setNegative (true);
+        extract.filter (*cloud_extracted);
+        cloud_filtered.swap (cloud_extracted);
+        i++;
+    }
+
+    // Convert to ROS data type
+    sensor_msgs::PointCloud2 output;
+    pcl::toROSMsg(*cloud_extracted, output);
+    // pcl_conversions::moveFromPCL(cloud_extracted, output);
+    output.header.frame_id = frame_id;
+    // Publish the data
+    PubOutput.publish(output);
+}
+
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
     const static std::string EXAMPLE_FRAME_ID = "example_frame";
@@ -171,6 +242,9 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
         break;
     case 3:
         projectInliers(cloud_msg, EXAMPLE_FRAME_ID);
+        break;
+    case 4:
+        extractIndices(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
         break;

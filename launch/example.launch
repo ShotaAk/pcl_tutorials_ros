@@ -30,7 +30,7 @@
       args="0 0 0 -1.570796 0 -1.570796 camera_link camera_depth_optical_frame " />
   </group>
 
-  <node name="pcl_example" pkg="pcl_tutorials_ros" type="$(arg example)">
+  <node name="pcl_example" pkg="pcl_tutorials_ros" type="$(arg example)" output="screen">
     <param name="number" value="$(arg number)" />
   </node>
 

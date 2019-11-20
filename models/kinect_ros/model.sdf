@@ -53,7 +53,7 @@
           <pointCloudTopicName>depth_registered/points</pointCloudTopicName>
           <frameName>/camera_depth_optical_frame</frameName>
           <pointCloudCutoff>0.01</pointCloudCutoff>
-          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <pointCloudCutoffMax>2.0</pointCloudCutoffMax>
           <distortionK1>0</distortionK1>
           <distortionK2>0</distortionK2>
           <distortionK3>0</distortionK3>
