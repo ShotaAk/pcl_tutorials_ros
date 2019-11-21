@@ -207,6 +207,8 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
         plane(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     case 1:
+        break;
+    case 2:
         euclideanClusterExtraction(cloud_msg, EXAMPLE_FRAME_ID);
         break;
     default:
