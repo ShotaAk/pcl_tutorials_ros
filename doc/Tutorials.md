@@ -91,3 +91,18 @@ roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazeb
 ```
 
 ![plane_model](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/segmentation/plane_model.png)
+
+## Cylinder model segmentation
+
+TBD
+
+## Euclidean Cluster Extraction
+
+http://pointclouds.org/documentation/tutorials/cluster_extraction.php#cluster-extraction
+
+```bash
+roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=2 gazebo:=true
+```
+
+![euclideanClusterExtraction](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/segmentation/euclideanClusterExtraction.png)
+
