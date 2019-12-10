@@ -26,7 +26,7 @@ on ROS environments.
 cd ~/catkin_ws/src
 git clone https://github.com/ShotaAk/pcl_tutorials_ros
 
-# Install packages
+# Install package dependencies
 rosdep install -r -y --from-paths . --ignore-src
 
 # Build
