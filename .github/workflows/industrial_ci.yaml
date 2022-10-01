@@ -5,10 +5,12 @@ on:
     paths-ignore:
       - '.docker/**'
       - '**.md'
+      - '.github/workflows/build_docker_image.yaml'
   pull_request:
     paths-ignore:
       - '.docker/**'
       - '**.md'
+      - '.github/workflows/build_docker_image.yaml'
   workflow_dispatch:
 
 jobs:
