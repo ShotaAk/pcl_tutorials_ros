@@ -7,6 +7,7 @@ WORKDIR $OVERLAY_WS/src
 COPY . pcl_tutorials_ros
 
 # Install depnedencies
+# wget is required to download pcd files.
 # The add-apt-repository command needs software-properties-common package.
 # https://github.com/IntelRealSense/librealsense/blob/c94410a420b74e5fb6a414bd12215c05ddd82b69/doc/distribution_linux.md
 RUN apt-get update && \
@@ -23,6 +24,8 @@ RUN apt-get update && \
         librealsense2-udev-rules && \
     rosdep update && \
     rosdep install -iy --from-paths . && \
+    apt-get install wget && \
+    cd pcl_tutorials_ros/samples && ./download.sh && \
     rm -rf /var/lib/apt/lists/
 
 # Build package
