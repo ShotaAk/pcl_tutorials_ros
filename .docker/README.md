@@ -49,3 +49,5 @@ Successfully tagged pcl_tutorials_ros:melodic
 
 - Dockerfile for ROS project:
   - https://github.com/rt-net/crane_plus/tree/1.1.0/.docker
+- Why is `--privileged` necessary for rocker command:
+  - https://github.com/osrf/rocker/issues/13
