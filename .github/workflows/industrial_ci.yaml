@@ -9,6 +9,7 @@ on:
     paths-ignore:
       - '.docker/**'
       - '**.md'
+  workflow_dispatch:
 
 jobs:
   industrial_ci:
