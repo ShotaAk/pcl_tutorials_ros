@@ -9,8 +9,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-
-env:
   ROS_DISTRO: foxy
 
 jobs:
