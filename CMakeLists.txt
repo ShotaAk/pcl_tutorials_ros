@@ -32,3 +32,4 @@ target_link_libraries(kdtree
 )
 
 roslint_cpp()
+roslint_add_test()
