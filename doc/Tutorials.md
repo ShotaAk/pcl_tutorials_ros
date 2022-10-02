@@ -1,108 +1,102 @@
 # Tutorials
 
-Please refer to http://www.pointclouds.org/documentation/tutorials/
+Please refer to
+https://pcl.readthedocs.io/projects/tutorials/en/master/
+for details.
 
 - [Filtering](#filtering)
 - [Segmentation](#segmentation)
 - [KdTree](#kdtree)
 
-# Filtering
-
-[back to page top](#tutorials)
+## Filtering
 
 The Example code is [here](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/filtering.cpp).
 
-## Filtering a PointCloud using a PassThrough filter
+References:
+https://pcl.readthedocs.io/projects/tutorials/en/master/#filtering
 
-http://www.pointclouds.org/documentation/tutorials/passthrough.php#passthrough
+### Filtering a PointCloud using a PassThrough filter
 
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=0 gazebo:=true
 ```
 
-![passthrough](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/passThrough.png)
+![passthrough](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/passThrough.png)
 
-## Downsampling a PointCloud using a VoxelGrid filter
+### Downsampling a PointCloud using a VoxelGrid filter
 
-http://www.pointclouds.org/documentation/tutorials/voxel_grid.php#voxelgrid
-
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=1 gazebo:=true
 ```
 
-![downsampling](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/downsampling.png)
+![downsampling](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/downsampling.png)
 
-## Removing outliers using a StatisticalOutlierRemoval filter
+### Removing outliers using a StatisticalOutlierRemoval filter
 
-http://www.pointclouds.org/documentation/tutorials/statistical_outlier.php#statistical-outlier-removal
-
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=2 use_file:=true file:=table_scene_lms400.pcd
 ```
 
-![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/statisticalOutlierRemoval.png)
+![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/statisticalOutlierRemoval.png)
 
-## Projecting points using a parametric model
+### Projecting points using a parametric model
 
-http://www.pointclouds.org/documentation/tutorials/project_inliers.php#project-inliers
-
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=3 gazebo:=true
 ```
 
-![projecting](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/projecting.png)
+![projecting](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/projecting.png)
 
-## Extracting indices from a PointCloud
+### Extracting indices from a PointCloud
 
-http://www.pointclouds.org/documentation/tutorials/extract_indices.php#extract-indices
-
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=4 gazebo:=true
 ```
 
-![extractingIndices](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/filtering/extractingIndices.png)
-
-# KdTree
+![extractingIndices](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/extractingIndices.png)
 
 [back to page top](#tutorials)
+
+## KdTree
 
 The example code is [here](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/kdtree.cpp).
 
-http://www.pointclouds.org/documentation/tutorials/kdtree_search.php#kdtree-search
+References:
+https://pcl.readthedocs.io/projects/tutorials/en/master/#kdtree
 
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=kdtree gazebo:=true
 ```
 
-![kdtree](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/kdtree/kdtree.png)
-
-# Segmentation
+![kdtree](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/kdtree/kdtree.png)
 
 [back to page top](#tutorials)
 
+## Segmentation
+
 The example code is [here](https://github.com/ShotaAk/pcl_tutorials_ros/blob/master/src/segmentation.cpp).
 
-## Plane model segmentation
+References:
+https://pcl.readthedocs.io/projects/tutorials/en/master/#segmentation
 
-http://pointclouds.org/documentation/tutorials/planar_segmentation.php#planar-segmentation
+### Plane model segmentation
 
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazebo:=true
 ```
 
-![plane_model](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/segmentation/plane_model.png)
+![plane_model](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/segmentation/plane_model.png)
 
-## Cylinder model segmentation
+### Cylinder model segmentation
 
 TBD
 
-## Euclidean Cluster Extraction
+### Euclidean Cluster Extraction
 
-http://pointclouds.org/documentation/tutorials/cluster_extraction.php#cluster-extraction
-
-```bash
+```sh
 roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=2 gazebo:=true
 ```
 
-![euclideanClusterExtraction](https://github.com/ShotaAk/pcl_tutorials_ros/blob/images/segmentation/euclideanClusterExtraction.png)
+![euclideanClusterExtraction](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/segmentation/euclideanClusterExtraction.png)
 
+[back to page top](#tutorials)
