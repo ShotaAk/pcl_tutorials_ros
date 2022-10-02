@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   pcl_conversions
   roscpp
+  roslint
   sensor_msgs
   tf2_ros
 )
@@ -29,3 +30,5 @@ target_link_libraries(segmentation
 target_link_libraries(kdtree
   ${catkin_LIBRARIES}
 )
+
+roslint_cpp()
