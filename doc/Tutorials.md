@@ -5,8 +5,8 @@ https://pcl.readthedocs.io/projects/tutorials/en/master/
 for details.
 
 - [Filtering](#filtering)
-- [Segmentation](#segmentation)
 - [KdTree](#kdtree)
+- [Segmentation](#segmentation)
 
 ## Filtering
 
