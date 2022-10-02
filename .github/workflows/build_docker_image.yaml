@@ -34,9 +34,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.ROS_DISTRO }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
           build-args: ROS_DISTRO=${{ env.ROS_DISTRO }}
