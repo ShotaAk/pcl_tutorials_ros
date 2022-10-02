@@ -213,7 +213,7 @@ void extractIndices(const sensor_msgs::PointCloud2ConstPtr& cloud_msg, const std
     pcl::ExtractIndices<pcl::PointXYZRGB> extract;
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_extracted(new pcl::PointCloud<pcl::PointXYZRGB>());
 
-    int i = 0, nr_points = std::static_cast<int>(cloud_filtered->points.size());
+    int i = 0, nr_points = static_cast<int>(cloud_filtered->points.size());
     // While 30% of the original cloud is still there
     while (cloud_filtered->points.size () > 0.15 * nr_points)
     {

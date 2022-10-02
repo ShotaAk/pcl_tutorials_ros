@@ -153,7 +153,7 @@ void euclideanClusterExtraction(const sensor_msgs::PointCloud2ConstPtr& cloud_ms
     seg.setDistanceThreshold(0.02);
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_extracted(new pcl::PointCloud<pcl::PointXYZRGB>());
-    int i = 0, nr_points = std::static_cast<int>(cloud_filtered->points.size());
+    int i = 0, nr_points = static_cast<int>(cloud_filtered->points.size());
     while (cloud_filtered->points.size () > 0.3 * nr_points)
     {
         // Segment the largest planar component from the remaining cloud
