@@ -52,3 +52,4 @@ CATKIN_IGNORE
 # PCD files from pointclouds.org
 table_scene_lms400.pcd
 
+.vscode
