@@ -1,8 +1,19 @@
 # Tutorials
 
+Launch example node with following command:
+
+```sh
+$ roslaunch pcl_tutorials_ros example.launch \
+    example:=EXAMPLE_NAME \
+    number:=EXAMPLE_NUMBER \
+    realsense:=SET_TRUE_TO_USE_REALSENSE \
+    gazebo:=SET_TRUE_TO_RUN_GAZEBO_SIMULATION \
+    use_file:=SET_TRUE_TO_LOAD_PCD_FILE file:=PCD_FILE_PATH
+```
+
 Please refer to
 https://pcl.readthedocs.io/projects/tutorials/en/master/
-for details.
+for PCL details.
 
 - [Filtering](#filtering)
 - [KdTree](#kdtree)
@@ -15,7 +26,7 @@ The Example code is [here](https://github.com/ShotaAk/pcl_tutorials_ros/blob/mas
 References:
 https://pcl.readthedocs.io/projects/tutorials/en/master/#filtering
 
-### Filtering a PointCloud using a PassThrough filter
+### 0: Filtering a PointCloud using a PassThrough filter
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=0 gazebo:=true
@@ -23,7 +34,7 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=0 gazebo:=
 
 ![passthrough](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/passThrough.png)
 
-### Downsampling a PointCloud using a VoxelGrid filter
+### 1: Downsampling a PointCloud using a VoxelGrid filter
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=1 gazebo:=true
@@ -31,7 +42,7 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=1 gazebo:=
 
 ![downsampling](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/downsampling.png)
 
-### Removing outliers using a StatisticalOutlierRemoval filter
+### 2: Removing outliers using a StatisticalOutlierRemoval filter
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=2 use_file:=true file:=table_scene_lms400.pcd
@@ -39,7 +50,7 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=2 use_file
 
 ![statisticalOutlierRemoval](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/statisticalOutlierRemoval.png)
 
-### Projecting points using a parametric model
+### 3: Projecting points using a parametric model
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=3 gazebo:=true
@@ -47,7 +58,7 @@ roslaunch pcl_tutorials_ros example.launch example:=filtering number:=3 gazebo:=
 
 ![projecting](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/filtering/projecting.png)
 
-### Extracting indices from a PointCloud
+### 4: Extracting indices from a PointCloud
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=filtering number:=4 gazebo:=true
@@ -79,7 +90,7 @@ The example code is [here](https://github.com/ShotaAk/pcl_tutorials_ros/blob/mas
 References:
 https://pcl.readthedocs.io/projects/tutorials/en/master/#segmentation
 
-### Plane model segmentation
+### 0: Plane model segmentation
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazebo:=true
@@ -87,11 +98,11 @@ roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=0 gazeb
 
 ![plane_model](https://github.com/ShotaAk/pcl_tutorials_ros/raw/images/segmentation/plane_model.png)
 
-### Cylinder model segmentation
+### 1: Cylinder model segmentation
 
 TBD
 
-### Euclidean Cluster Extraction
+### 2: Euclidean Cluster Extraction
 
 ```sh
 roslaunch pcl_tutorials_ros example.launch example:=segmentation number:=2 gazebo:=true
