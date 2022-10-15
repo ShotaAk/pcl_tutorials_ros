@@ -77,4 +77,7 @@ roslaunch pcl_tutorials_ros example.launch use_file:=true file:=pcl_logo.pcd
 
 ## License
 
-MIT License
+This package is released under the MIT License.
+
+The original source code of [kinect_ros](./models/kinect_ros/) is 
+[osrf/gazebo_models (Creative Commons Attribution 3.0 Unported License)](https://github.com/osrf/gazebo_models).
