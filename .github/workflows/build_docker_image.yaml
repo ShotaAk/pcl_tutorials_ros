@@ -9,10 +9,15 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  ROS_DISTRO: melodic
 
 jobs:
   build-and-push-image:
+    strategy:
+      matrix:
+        env:
+          - { ROS_DISTRO: melodic}
+          - { ROS_DISTRO: noetic}
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,13 +40,13 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ env.ROS_DISTRO }}
+            type=raw,value=${{ matrix.env.ROS_DISTRO }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           file: .docker/Dockerfile
-          build-args: ROS_DISTRO=${{ env.ROS_DISTRO }}
+          build-args: ROS_DISTRO=${{ matrix.env.ROS_DISTRO }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

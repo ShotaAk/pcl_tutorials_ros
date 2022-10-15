@@ -11,7 +11,7 @@ COPY . pcl_tutorials_ros
 # The add-apt-repository command needs software-properties-common package.
 # https://github.com/IntelRealSense/librealsense/blob/c94410a420b74e5fb6a414bd12215c05ddd82b69/doc/distribution_linux.md
 RUN apt-get update && \
-    apt-get install -y software-properties-common && \
+    apt-get install -y software-properties-common git && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE && \
     add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u && \

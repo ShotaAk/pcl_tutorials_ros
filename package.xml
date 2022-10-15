@@ -11,7 +11,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>gazebo</depend>
-  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_pkgs</depend>
   <depend>pcl_conversions</depend>
   <depend>pcl_ros</depend>
   <depend>realsense2_camera</depend>

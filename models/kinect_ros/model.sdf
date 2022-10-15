@@ -38,7 +38,7 @@
           </clip>
         </camera>
 
-        <!-- Ref: http://gazebosim.org/tutorials/?tut=ros_depth_camera -->
+        <!-- Ref: https://classic.gazebosim.org/tutorials?tut=ros_depth_camera&cat=connect_ros -->
         <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
           <baseline>0.2</baseline>
           <alwaysOn>true</alwaysOn>
