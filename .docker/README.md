@@ -56,9 +56,9 @@ rocker --x11 --net=host --privileged \
 
 ```sh
 $ cd pcl_tutorials_ros/.docker
-$ ./build.sh melodic
+$ ./build.sh noetic
 ...
-Successfully tagged pcl_tutorials_ros:melodic
+Successfully tagged pcl_tutorials_ros:noetic
 ```
 
 ## References

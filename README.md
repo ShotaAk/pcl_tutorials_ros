@@ -10,6 +10,7 @@ on ROS environments.
 ## Requirments
 
 - ROS Melodic
+- ROS Noetic
 
 ### Optional
 
@@ -22,7 +23,7 @@ on ROS environments.
 Please refer to [.docker/README.md](.docker/README.md) for details.
 
 ```sh
-docker pull ghcr.io/shotaak/pcl_tutorials_ros:melodic
+docker pull ghcr.io/shotaak/pcl_tutorials_ros:noetic
 ```
 
 ## Source build
